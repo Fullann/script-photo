@@ -82,3 +82,16 @@ Installez les bibliothèques Python suivantes avant d'exécuter le script :
 - Le script utilise `os.listdir()` pour lister les fichiers dans le dossier.
 - Chaque fichier est vérifié pour s'assurer qu'il s'agit d'une image.
 - Si la taille du fichier est inférieure à **30 Ko**, il est supprimé avec `os.remove()`.
+
+## Script 4: Suppression des images strictement identiques dans un dossier et ses sous-dossiers
+### Explications du script :
+Ce script parcourt tous les sous-dossiers d'un répertoire donné pour identifier les images strictement identiques (même contenu binaire). Lorsqu'il trouve deux images identiques, l'une d'elles est supprimée pour ne conserver qu'un seul exemplaire de chaque image unique.
+
+### Fonctionnement du script :
+- Parcours des dossiers : Le script explore tous les sous-dossiers dans le dossier racine spécifié, en recherchant les images avec des extensions comme .png, .jpg, .jpeg, .bmp, et .gif.
+- Calcul du hachage de chaque image : Pour chaque image, le script génère un hachage MD5 unique basé sur les données binaires de l'image. Ce hachage permet de vérifier si deux images sont strictement identiques.
+- Détection des doublons et suppression : Si le hachage d'une image correspond à un hachage déjà enregistré, l'image est identifiée comme un doublon et supprimée.
+### Explications techniques :
+- Fonction image_hash : Cette fonction ouvre chaque image, la convertit en mode RGB (pour un formatage uniforme) et calcule un hachage MD5 unique basé sur les données binaires de l'image.
+- Détection des doublons : Les hachages d'image sont stockés dans un dictionnaire (hashes). Si un hachage est déjà présent, le fichier est considéré comme un doublon et supprimé.
+- Suppression : Pour chaque doublon détecté, le script utilise os.remove() pour le supprimer immédiatement.
